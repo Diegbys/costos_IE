@@ -7,13 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
 var costos = new Vue({
     el: "#costos",
     data: {
-        capacidad_Instalada: 0,
+        capacidad_Instalada: "",
         frecuencia: "",
-        margen_Beneficio: 0,
+        margen_Beneficio: "",
 
         descripcion: "",
-        costo_Fijo: 0,
-        costo_Variable: 0,
+        costo_Fijo: "",
+        costo_Variable: "",
 
         cabecera_Tabla: [
             "Descripcion",
@@ -33,25 +33,35 @@ var costos = new Vue({
         punto_Equilibrio: 0,
     },
     methods: {
-        agregar_fila(){
-            //Para agregar una fila nueva
-            let row = {descripcion: this.descripcion, costoFijo: this.costo_Fijo, costoVariable: this.costo_Variable, subtotal: (parseFloat(this.costo_Fijo) + parseFloat(this.costo_Variable)).toFixed(3)};
-            this.datos_Tabla.push(row)
-            this.descripcion = "";
-            this.costo_Fijo = "";
-            this.costo_Variable = "";
+        agregar_fila() {
+            if (this.capacidad_Instalada != "" && this.frecuencia != "" && this.margen_Beneficio != "" && this.descripcion != "" && this.costo_Fijo != "" && this.costo_Variable != "") {
 
-            //Marcas los totales de la tabla
-            this.costo_f_Total = 0;
-            this.costo_v_Total = 0;
-            this.costo_Total = 0;
-            this.datos_Tabla.forEach(row => {
-                console.log(row)
-                console.log(parseFloat(row.costoFijo))
-                this.costo_f_Total =  (parseFloat(this.costo_f_Total) + parseFloat(row.costoFijo)).toFixed(3);
-                this.costo_v_Total =  (parseFloat(this.costo_v_Total) + parseFloat(row.costoVariable)).toFixed(3);
-            });
-            this.costo_Total =  (parseFloat(this.costo_f_Total) + parseFloat(this.costo_v_Total)).toFixed(3);
+                //Para agregar una fila nueva
+                let row = { descripcion: this.descripcion, costoFijo: this.costo_Fijo, costoVariable: this.costo_Variable, subtotal: (parseFloat(this.costo_Fijo) + parseFloat(this.costo_Variable)).toFixed(3) };
+                this.datos_Tabla.push(row)
+                this.descripcion = "";
+                this.costo_Fijo = "";
+                this.costo_Variable = "";
+
+                //Marcas los totales de la tabla
+                this.costo_f_Total = 0;
+                this.costo_v_Total = 0;
+                this.costo_Total = 0;
+                this.datos_Tabla.forEach(row => {
+                    console.log(row)
+                    console.log(parseFloat(row.costoFijo))
+                    this.costo_f_Total = (parseFloat(this.costo_f_Total) + parseFloat(row.costoFijo)).toFixed(3);
+                    this.costo_v_Total = (parseFloat(this.costo_v_Total) + parseFloat(row.costoVariable)).toFixed(3);
+                });
+                this.costo_Total = (parseFloat(this.costo_f_Total) + parseFloat(this.costo_v_Total)).toFixed(3);
+
+                //resultados
+                this.costo_Unitario = (parseFloat(this.costo_Total) / parseFloat(this.capacidad_Instalada)).toFixed(3);
+                this.precio_Venta = (parseFloat(this.costo_Unitario) * (1 + parseFloat(this.margen_Beneficio)/100 )).toFixed(3);
+
+            } else {
+                alert("Debe rellenar todos los campos");
+            }
         }
     },
 })
