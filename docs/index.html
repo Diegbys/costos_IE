@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Costos</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav>
+        <div class="nav-wrapper teal">
+            <a href="#" class="brand-logo center"><i class="material-icons left">attach_money</i> Costos</a>
+        </div>
+    </nav>
+
+    <div class="section"></div>
+    <div class="section"></div>
+
+    <!-- <div id="costo" style="margin: 0 30px;">
+
+        <div class="row" style="margin: 0;">
+                <div class="row">
+                    <div class="input-field col s2">
+                        <input placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Capacidad Instalada</label>
+                    </div>
+                    <div class="input-field col s1">
+                        <select>
+                            <option value="" disabled selected></option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Frecuencia</label>
+                    </div>
+                    <div class="input-field col s2">
+                        <input placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Margen de beneficio</label>
+                    </div>
+                    <div class="input-field col s1" style="display: flex; justify-content: center; align-items: center;">
+                        |
+                    </div>
+                    <div class="input-field col s2">
+                        <input placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Descripción</label>
+                    </div>
+                    <div class="input-field col s1">
+                        <input placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Costo Fijo</label>
+                    </div>
+
+                    <div class="input-field col s1">
+                        <input placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Costo Variable</label>
+                    </div>
+
+                    <div class="input-field col s2">
+                        <button style="width: 100%;" class="btn teal">Agregar</button>
+                    </div>
+                </div>
+        </div>
+
+        <div class="content-table" style="height: 200px; overflow-y: scroll;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Item Name</th>
+                        <th>Item Price</th>
+                        <th>Item Price</th>
+                    </tr>
+                </thead>
+    
+                <tbody>
+                    <tr>
+                        <td>Alvin</td>
+                        <td>Eclair</td>
+                        <td>$0.87</td>
+                        <td>$0.87</td>
+    
+                    </tr>
+                    <tr>
+                        <td>Alan</td>
+                        <td>Jellybean</td>
+                        <td>$3.76</td>
+                        <td>$3.76</td>
+    
+                    </tr>
+                    <tr>
+                        <td>Jonathan</td>
+                        <td>Lollipop</td>
+                        <td>$7.00</td>
+                        <td>$7.00</td>
+    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+
+    <div class="section"></div>
+
+    <div class="row">
+        <div class="input-field col s3">
+            <input placeholder="" id="first_name" type="text" class="validate">
+            <label for="first_name">Capacidad Instalada</label>
+        </div>
+    </div> -->
+
+    <div id="costos" class="container">
+        <div class="row">
+
+            <div class="col s12 m6">
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input v-model="capacidad_Instalada" placeholder="" id="first_name" type="text" class="validate" onkeypress="return isNumber(event);">
+                        <label for="first_name">Capacidad Instalada</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <select v-model="frecuencia" >
+                            <option value="" disabled selected></option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Frecuencia</label>
+                    </div>
+                    <div class="input-field col s5">
+                        <input v-model="margen_Beneficio"  placeholder="" id="first_name" type="text" class="validate" onkeypress="return isNumber(event);">
+                        <label for="first_name">Margen de beneficio</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input v-model="descripcion"  placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Descripción</label>
+                    </div>
+                    <div class="input-field col s3">
+                        <input v-model="costo_Fijo"  placeholder="" id="first_name" type="text" class="validate" onkeypress="return isNumber(event);">
+                        <label for="first_name">Costo Fijo</label>
+                    </div>
+
+                    <div class="input-field col s3">
+                        <input v-model="costo_Variable"  placeholder="" id="first_name" type="text" class="validate" onkeypress="return isNumber(event);">
+                        <label for="first_name">Costo Variable</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button v-on:click="agregar_fila" style="width: 100%;" class="btn teal"> <i class="material-icons left">add</i>
+                            Agregar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col s6 m6">
+                <div class="content-table" style="height: 200px; overflow-y: scroll;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th v-for="cabecera in cabecera_Tabla">{{cabecera}}</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr v-for="row in datos_Tabla">
+                                <td v-for="r in row">{{r}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="input-field col s4">
+                        <input v-model="costo_f_Total" disabled placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Costo fijo total</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input v-model="costo_v_Total"  disabled placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Costo variable total</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input v-model="costo_Total"  disabled placeholder="" id="first_name" type="text" class="validate">
+                        <label for="first_name">Costo total</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12">
+                <h5 class="teal-text center">Resultados</h5>
+            </div>
+            <div class="input-field col s3">
+                <input v-model="costo_Unitario"  disabled placeholder="" id="first_name" type="text" class="validate">
+                <label for="first_name">Costo unitario</label>
+            </div>
+            <div class="input-field col s3">
+                <input v-model="precio_Venta"  disabled placeholder="" id="first_name" type="text" class="validate">
+                <label for="first_name">Precio de venta</label>
+            </div>
+            <div class="input-field col s3">
+                <input v-model="costo_u_Variable"  disabled placeholder="" id="first_name" type="text" class="validate">
+                <label for="first_name">Costo unitario variable</label>
+            </div>
+            <div class="input-field col s3">
+                <input v-model="punto_Equilibrio" disabled placeholder="" id="first_name" type="text" class="validate">
+                <label for="first_name">Punto de equilibrio</label>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
