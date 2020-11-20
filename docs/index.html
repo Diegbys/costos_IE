@@ -33,9 +33,7 @@
                     <div class="input-field col s3">
                         <select v-model="frecuencia" >
                             <option value="" disabled selected></option>
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
+                            <option v-for="tim in time" :value="tim.value">{{tim.name}}</option>
                         </select>
                         <label>Frecuencia</label>
                     </div>
